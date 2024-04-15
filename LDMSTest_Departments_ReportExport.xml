@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<displays>
+<display id="e3a83f82-018e-1000-8001-7f000001711c" type="" style="Table" enable="true">
+	<name><![CDATA[LDMSTest_Departments]]></name>
+	<description><![CDATA[Display All Departments]]></description>
+	<tooltip><![CDATA[]]></tooltip>
+	<drillclass><![CDATA[]]></drillclass>
+	<CustomValues>
+		<TYPE><![CDATA[horizontal]]></TYPE>
+	</CustomValues>
+	<query>
+		<sql><![CDATA[SELECT 
+    Departments_ID,
+    Departments_Name,
+    Departments_Location 
+FROM TBL_Departments]]></sql>
+	</query>
+	<display id="null" type="" style="Table" enable="true">
+		<name><![CDATA[LDMSTest_EmployeesInDepartment]]></name>
+		<description><![CDATA[Employees for a given Department]]></description>
+		<tooltip><![CDATA[]]></tooltip>
+		<drillclass><![CDATA[]]></drillclass>
+		<CustomValues>
+			<TYPE><![CDATA[horizontal]]></TYPE>
+		</CustomValues>
+		<query>
+			<sql><![CDATA[SELECT  
+    Employees_ID ,
+    Employees_Name ,
+    Employees_Job_Title ,
+    Employees_Manager_ID ,
+    Employees_Date_Hired ,
+    Employees_Salary ,
+    Employees_Department_ID
+FROM TBL_Employees INNER JOIN  TBL_Departments
+ON Employees_Department_ID = TBL_Departments.Departments_ID
+WHERE 
+Employees_Department_ID = :DEPARTMENTS_ID]]></sql>
+			<binds>
+				<bind id="DEPARTMENTS_ID">
+					<prompt><![CDATA[DEPARTMENTS_ID]]></prompt>
+					<tooltip><![CDATA[DEPARTMENTS_ID]]></tooltip>
+					<value><![CDATA[NULL_VALUE]]></value>
+					<bracket><![CDATA[null]]></bracket>
+				</bind>
+			</binds>
+		</query>
+	</display>
+	<display id="null" type="" style="Table" enable="true">
+		<name><![CDATA[LDMSTest_DepartmentTotalSalary]]></name>
+		<description><![CDATA[]]></description>
+		<tooltip><![CDATA[]]></tooltip>
+		<drillclass><![CDATA[]]></drillclass>
+		<CustomValues>
+			<TYPE><![CDATA[horizontal]]></TYPE>
+		</CustomValues>
+		<query>
+			<sql><![CDATA[SELECT 
+    Departments_Name,
+    Sum(Employees_Salary) "Total Salary for Department"
+FROM 
+    TBL_Employees INNER JOIN TBL_Departments
+    ON Employees_Department_ID = DEPARTMENTS_ID
+WHERE 
+    Employees_Department_ID = :DEPARTMENTS_ID
+GROUP BY Departments_Name]]></sql>
+			<binds>
+				<bind id="DEPARTMENTS_ID">
+					<prompt><![CDATA[DEPARTMENTS_ID]]></prompt>
+					<tooltip><![CDATA[DEPARTMENTS_ID]]></tooltip>
+					<value><![CDATA[NULL_VALUE]]></value>
+					<bracket><![CDATA[null]]></bracket>
+				</bind>
+			</binds>
+		</query>
+	</display>
+</display>
+</displays>

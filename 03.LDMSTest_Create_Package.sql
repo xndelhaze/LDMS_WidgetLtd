@@ -122,11 +122,10 @@ CREATE OR REPLACE PACKAGE BODY pkg_EmployeeChanges AS
     Date: 20240415 
     Version:1.0
     Description: Returns Employee Salary
-    Parameters: 2 IN
+    Parameters: 1 IN
     --*/        
     FUNCTION fn_EmployeeReturnSalary(
         p_Employees_ID IN LDMSTest.TBL_Employees.Employees_ID%TYPE)
-        --p_Employees_Salary OUT LDMSTest.TBL_Employees.Employees_Salary%TYPE)
         RETURN LDMSTest.TBL_Employees.Employees_Salary%TYPE
     AS
         v_Employees_Salary LDMSTest.TBL_Employees.Employees_Salary%TYPE;
